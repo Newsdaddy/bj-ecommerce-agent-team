@@ -1,0 +1,65 @@
+{
+  "version": "2.0",
+  "lastUpdated": "2026-02-07T18:43:35.229Z",
+  "activeFeatures": [
+    "병진 개인 페이지"
+  ],
+  "primaryFeature": "병진 개인 페이지",
+  "features": {
+    "병진 개인 페이지": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-02-07T12:09:43.993Z",
+        "lastUpdated": "2026-02-07T18:43:35.229Z"
+      },
+      "lastFile": "/Users/bj/Documents/ASC/빌더 트랙/병진 개인 페이지/src/components/CareerSection.tsx"
+    }
+  },
+  "pipeline": {
+    "currentPhase": 1,
+    "level": "Dynamic",
+    "phaseHistory": []
+  },
+  "session": {
+    "startedAt": "2026-02-04T23:00:21.249Z",
+    "onboardingCompleted": false,
+    "lastActivity": "2026-02-07T18:43:35.229Z"
+  },
+  "history": [
+    {
+      "timestamp": "2026-02-07T12:09:43.993Z",
+      "feature": "병진 개인 페이지",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-07T18:26:00.185Z",
+      "feature": "병진 개인 페이지",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-07T18:27:16.580Z",
+      "feature": "병진 개인 페이지",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-07T18:43:29.622Z",
+      "feature": "병진 개인 페이지",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-02-07T18:43:35.229Z",
+      "feature": "병진 개인 페이지",
+      "phase": "do",
+      "action": "updated"
+    }
+  ]
+}

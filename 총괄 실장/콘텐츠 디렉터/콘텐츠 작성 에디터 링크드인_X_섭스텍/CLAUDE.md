@@ -414,3 +414,91 @@ final_content_YYYYMMDD_[topic]_[platform]_[lang].md
 
 - **입력**: 자료 구조화 매니저의 `content_outline_YYYYMMDD_[topic]_ko/en.md`
 - **출력**: `final/[platform]/final_content_..._[platform]_ko/en.md` → 콘텐츠 디렉터 검수
+
+---
+
+## 비주얼 에이드 제작 워크플로우
+
+### 제작 방식: 혼합 (Python + nano-banana)
+
+```
+1단계: Python matplotlib로 정확한 데이터 그래프 생성
+   - 수치 100% 정확 보장
+   - 검은 배경 + 네온 컬러
+   ↓
+2단계: nano-banana로 스타일 보정 (선택)
+   - 디자인 개선
+   - 브랜드 일관성 적용
+   ↓
+3단계: 콘텐츠 디렉터 검수
+   ↓
+4단계: 총괄 실장/final_outputs/에 최종 저장
+```
+
+### Python 그래프 스타일 가이드
+
+```python
+# 기본 스타일
+plt.style.use('dark_background')
+
+# 컬러 팔레트
+colors = {
+    'primary': '#00D4FF',      # 시안 (주요 데이터)
+    'secondary': '#FF6B6B',    # 코랄 (비교 데이터)
+    'accent': '#4ECDC4',       # 민트 (강조)
+    'text': '#FFFFFF',         # 화이트 (텍스트)
+    'grid': '#333333'          # 다크그레이 (그리드)
+}
+
+# 폰트
+font = {'family': 'Arial', 'weight': 'bold', 'size': 12}
+```
+
+### 그래프 유형별 템플릿
+
+| 데이터 유형 | 추천 그래프 | 용도 |
+|-----------|-----------|------|
+| 시장 규모 | Bar Chart | 국가별/연도별 비교 |
+| 점유율 | Pie/Donut | 비율 표현 |
+| 추세 | Line Chart | 시계열 변화 |
+| 비교 | Horizontal Bar | 항목별 비교 |
+
+### 비주얼 에이드 파일명 규칙
+
+```
+visual_YYYYMMDD_[topic]_[type].png
+```
+예시:
+- `visual_20260129_korea_ecommerce_bar.png`
+- `visual_20260129_korea_ecommerce_pie.png`
+
+### nano-banana 스타일 보정 프롬프트 패턴
+
+```
+Edit the graph image to:
+- Enhance contrast and readability
+- Add subtle glow effects to data bars
+- Ensure text is crisp and clear
+- Maintain black background aesthetic
+```
+
+---
+
+## 비주얼 에이드 체크리스트
+
+### 제작 완료 후
+- [ ] 수치가 원본 데이터와 100% 일치
+- [ ] 모든 레이블/숫자가 읽기 쉬움
+- [ ] 검은 배경에서 컬러 대비 충분
+- [ ] 그래프 제목 명확
+- [ ] 출처 표기 포함
+
+### 콘텐츠 디렉터 검수 요청 시 포함 정보
+```markdown
+## 비주얼 에이드 검수 요청
+
+- **파일**: [파일명]
+- **원본 데이터**: [수치 목록]
+- **용도**: [LinkedIn/X/Substack] 글 삽입용
+- **관련 콘텐츠**: [연결된 글 파일]
+```

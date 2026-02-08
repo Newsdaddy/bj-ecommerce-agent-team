@@ -344,9 +344,20 @@ ls -la "콘텐츠 작성 에디터 링크드인_X_섭스텍/final/substack/"
 │   └── agent_check_YYYYMMDD.md
 ├── schedule_reports/
 │   └── content_schedule_YYYYMMDD.md
-└── improvement_logs/
-    └── improvement_YYYYMMDD.md
+├── improvement_logs/
+│   └── improvement_YYYYMMDD.md
+└── final_outputs/          ← 사용자에게 보고하는 최종 산출물
+    ├── linkedin/
+    │   └── final_content_YYYYMMDD_[topic]_linkedin_[lang].md
+    ├── x/
+    │   └── final_content_YYYYMMDD_[topic]_x_[lang].md
+    ├── substack/
+    │   └── final_content_YYYYMMDD_[topic]_substack_[lang].md
+    └── sales/
+        └── campaign_report_YYYYMMDD.md
 ```
+
+> **원칙**: 서브 에이전트가 작업한 산출물 중 사용자에게 보고하는 최종본은 반드시 `총괄 실장/final_outputs/`에 저장한다.
 
 ---
 
