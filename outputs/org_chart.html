@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BJ 이커머스 사단 - 조직도 & 업무 흐름 (v2)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00D4FF, #4ECDC4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .version-badge {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .version-badge span {
+            background: #333;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #4ECDC4;
+        }
+
+        .goal-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF6B6B, #ff8e53);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: white;
+            margin: 0 auto 30px;
+            display: block;
+            width: fit-content;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #00D4FF;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #00D4FF33;
+        }
+
+        /* 조직도 그리드 */
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .level {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .connector {
+            width: 2px;
+            height: 30px;
+            background: linear-gradient(180deg, #00D4FF, #4ECDC4);
+            margin: 0 auto;
+        }
+
+        /* 에이전트 카드 */
+        .agent-card {
+            background: linear-gradient(145deg, #1e1e2e, #252540);
+            border-radius: 16px;
+            padding: 20px;
+            min-width: 280px;
+            max-width: 320px;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .agent-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
+            border-color: #00D4FF55;
+        }
+
+        .agent-card.strategic::before { background: linear-gradient(90deg, #FFD700, #FFA500); }
+        .agent-card.sales::before { background: linear-gradient(90deg, #FF6B6B, #ff8e53); }
+        .agent-card.content::before { background: linear-gradient(90deg, #00D4FF, #4ECDC4); }
+
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .agent-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .strategic .agent-icon { background: linear-gradient(135deg, #FFD700, #FFA500); }
+        .sales .agent-icon { background: linear-gradient(135deg, #FF6B6B, #ff8e53); }
+        .content .agent-icon { background: linear-gradient(135deg, #00D4FF, #4ECDC4); }
+
+        .agent-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .agent-name-en {
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        .agent-model {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: #333;
+            color: #888;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .agent-role {
+            font-size: 0.85rem;
+            color: #aaa;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .agent-tasks {
+            list-style: none;
+            font-size: 0.8rem;
+        }
+
+        .agent-tasks li {
+            padding: 6px 0;
+            border-bottom: 1px solid #333;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .agent-tasks li:last-child { border-bottom: none; }
+        .agent-tasks li::before { content: '▸'; color: #4ECDC4; }
+
+        /* CM 그리드 */
+        .cm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+            max-width: 1200px;
+        }
+
+        .cm-card {
+            background: linear-gradient(145deg, #1e1e2e, #252540);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid #333;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .cm-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cm-card.priority-high { border-left-color: #FF6B6B; }
+        .cm-card.priority-medium { border-left-color: #FFD700; }
+        .cm-card.priority-low { border-left-color: #4ECDC4; }
+
+        .cm-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .cm-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .cm-target {
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            background: #333;
+            color: #4ECDC4;
+        }
+
+        .cm-markets {
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .cm-stats {
+            display: flex;
+            gap: 10px;
+            font-size: 0.7rem;
+        }
+
+        .cm-stat {
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: #2a2a3e;
+        }
+
+        .cm-stat.growth { color: #4ECDC4; }
+        .cm-stat.hq { color: #FFD700; }
+        .cm-stat.home { color: #FF6B6B; }
+
+        /* 협업 다이어그램 */
+        .collab-section {
+            background: linear-gradient(145deg, #1e1e2e, #252540);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            border: 1px solid #333;
+        }
+
+        .collab-title {
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .collab-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .collab-box {
+            background: #2a2a3e;
+            border-radius: 12px;
+            padding: 20px;
+            min-width: 250px;
+            text-align: center;
+        }
+
+        .collab-box.sales { border: 2px solid #FF6B6B; }
+        .collab-box.content { border: 2px solid #00D4FF; }
+
+        .collab-box-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .collab-box.sales .collab-box-title { color: #FF6B6B; }
+        .collab-box.content .collab-box-title { color: #00D4FF; }
+
+        .collab-items {
+            list-style: none;
+            font-size: 0.85rem;
+            color: #ccc;
+            text-align: left;
+        }
+
+        .collab-items li {
+            padding: 5px 0;
+        }
+
+        .collab-arrow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .collab-arrow-text {
+            font-size: 0.75rem;
+            color: #888;
+            max-width: 150px;
+            text-align: center;
+        }
+
+        .collab-arrow-icon {
+            font-size: 2rem;
+            color: #4ECDC4;
+        }
+
+        /* 파이프라인 */
+        .pipeline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 30px 0;
+        }
+
+        .pipeline-step {
+            background: #2a2a3e;
+            padding: 15px 20px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 120px;
+            border: 1px solid #444;
+        }
+
+        .step-day {
+            font-size: 0.7rem;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .step-name {
+            font-weight: 600;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .step-agent {
+            font-size: 0.7rem;
+            color: #4ECDC4;
+            margin-top: 5px;
+        }
+
+        .pipeline-arrow {
+            color: #00D4FF;
+            font-size: 1.5rem;
+        }
+
+        /* KPI */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .kpi-card {
+            background: #2a2a3e;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+        .kpi-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00D4FF, #4ECDC4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .kpi-label {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .cm-grid { grid-template-columns: 1fr; }
+            .collab-flow { flex-direction: column; }
+            .collab-arrow { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BJ 이커머스 사단</h1>
+        <p class="subtitle">Claude Code 멀티 에이전트 워크스페이스</p>
+        <div class="version-badge"><span>v2.0 - 9개 컨트리 매니저 체계</span></div>
+        <div class="goal-badge">최종 목표: €15,000 연간 계약 체결</div>
+
+        <!-- 조직도 -->
+        <h2 class="section-title">조직도</h2>
+
+        <div class="org-chart">
+            <!-- 사외이사 -->
+            <div class="level">
+                <div class="agent-card strategic">
+                    <div class="agent-header">
+                        <div class="agent-icon">🎯</div>
+                        <div>
+                            <div class="agent-name">사외 이사</div>
+                            <div class="agent-name-en">outside_director</div>
+                            <div class="agent-model">claude-opus-4-5</div>
+                        </div>
+                    </div>
+                    <div class="agent-role">Big 3/Big 4 30년차 컨설턴트. 전략 비판적 조언</div>
+                    <ul class="agent-tasks">
+                        <li>ROI, CAC vs LTV 분석</li>
+                        <li>경쟁사 대비 차별점 검토</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="connector"></div>
+
+            <!-- 총괄 실장 -->
+            <div class="level">
+                <div class="agent-card strategic">
+                    <div class="agent-header">
+                        <div class="agent-icon">👔</div>
+                        <div>
+                            <div class="agent-name">총괄 실장</div>
+                            <div class="agent-name-en">general_manager</div>
+                            <div class="agent-model">claude-opus-4-5</div>
+                        </div>
+                    </div>
+                    <div class="agent-role">Task 기반 오케스트레이션. 세일즈+콘텐츠 조율</div>
+                    <ul class="agent-tasks">
+                        <li>사용자 명령 수신 및 업무 분배</li>
+                        <li>서브 에이전트 일일 점검</li>
+                        <li>Task 병렬 호출 실행</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="connector"></div>
+
+            <!-- 디렉터급 -->
+            <div class="level">
+                <div class="agent-card sales">
+                    <div class="agent-header">
+                        <div class="agent-icon">📈</div>
+                        <div>
+                            <div class="agent-name">세일즈 디렉터</div>
+                            <div class="agent-name-en">sales_director</div>
+                            <div class="agent-model">claude-opus-4-5</div>
+                        </div>
+                    </div>
+                    <div class="agent-role">9개 CM 지휘. 아웃바운드 파이프라인 총괄</div>
+                    <ul class="agent-tasks">
+                        <li>CM별 성과 관리 (20명/일)</li>
+                        <li>시장별 전략 수립</li>
+                        <li>콘텐츠팀 협업 조율</li>
+                    </ul>
+                </div>
+
+                <div class="agent-card content">
+                    <div class="agent-header">
+                        <div class="agent-icon">✍️</div>
+                        <div>
+                            <div class="agent-name">콘텐츠 디렉터</div>
+                            <div class="agent-name-en">content_director</div>
+                            <div class="agent-model">claude-opus-4-5</div>
+                        </div>
+                    </div>
+                    <div class="agent-role">인바운드 콘텐츠 전략 + CM 협업</div>
+                    <ul class="agent-tasks">
+                        <li>6단계 파이프라인 감독</li>
+                        <li>CM 콘텐츠 요청 48시간 내 응답</li>
+                        <li>세일즈 퍼널용 콘텐츠 기획</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 컨트리 매니저 그리드 -->
+        <h2 class="section-title">9개 컨트리 매니저 (CM)</h2>
+
+        <div class="cm-grid">
+            <div class="cm-card priority-high">
+                <div class="cm-header">
+                    <div class="cm-name">CM Indonesia</div>
+                    <div class="cm-target">3명/일</div>
+                </div>
+                <div class="cm-markets">인도네시아</div>
+                <div class="cm-stats">
+                    <span class="cm-stat growth">$94.5B SEA 최대</span>
+                </div>
+            </div>
+
+            <div class="cm-card priority-high">
+                <div class="cm-header">
+                    <div class="cm-name">CM Vietnam</div>
+                    <div class="cm-target">3명/일</div>
+                </div>
+                <div class="cm-markets">베트남</div>
+                <div class="cm-stats">
+                    <span class="cm-stat growth">고성장 Tiki/Sendo</span>
+                </div>
+            </div>
+
+            <div class="cm-card priority-high">
+                <div class="cm-header">
+                    <div class="cm-name">CM Korea</div>
+                    <div class="cm-target">3명/일</div>
+                </div>
+                <div class="cm-markets">한국</div>
+                <div class="cm-stats">
+                    <span class="cm-stat home">홈마켓</span>
+                </div>
+            </div>
+
+            <div class="cm-card priority-high">
+                <div class="cm-header">
+                    <div class="cm-name">CM Japan</div>
+                    <div class="cm-target">3명/일</div>
+                </div>
+                <div class="cm-markets">일본</div>
+                <div class="cm-stats">
+                    <span class="cm-stat hq">아시아 2위 고단가</span>
+                </div>
+            </div>
+
+            <div class="cm-card priority-medium">
+                <div class="cm-header">
+                    <div class="cm-name">CM Singapore</div>
+                    <div class="cm-target">2명/일</div>
+                </div>
+                <div class="cm-markets">싱가포르</div>
+                <div class="cm-stats">
+                    <span class="cm-stat hq">지역 HQ 집중</span>
+                </div>
+            </div>
+
+            <div class="cm-card priority-medium">
+                <div class="cm-header">
+                    <div class="cm-name">CM Philippines</div>
+                    <div class="cm-target">2명/일</div>
+                </div>
+                <div class="cm-markets">필리핀</div>
+                <div class="cm-stats">
+                    <span class="cm-stat growth">16.7% CAGR 최고</span>
+                </div>
+            </div>
+
+            <div class="cm-card priority-medium">
+                <div class="cm-header">
+                    <div class="cm-name">CM India</div>
+                    <div class="cm-target">2명/일</div>
+                </div>
+                <div class="cm-markets">인도</div>
+                <div class="cm-stats">
+                    <span class="cm-stat growth">14억 잠재력</span>
+                </div>
+            </div>
+
+            <div class="cm-card priority-low">
+                <div class="cm-header">
+                    <div class="cm-name">CM SEA Emerging</div>
+                    <div class="cm-target">1명/일</div>
+                </div>
+                <div class="cm-markets">태국 + 말레이시아</div>
+                <div class="cm-stats">
+                    <span class="cm-stat">보조 시장</span>
+                </div>
+            </div>
+
+            <div class="cm-card priority-low">
+                <div class="cm-header">
+                    <div class="cm-name">CM ANZ</div>
+                    <div class="cm-target">1명/일</div>
+                </div>
+                <div class="cm-markets">호주 + 뉴질랜드</div>
+                <div class="cm-stats">
+                    <span class="cm-stat hq">고단가 영어권</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 콘텐츠-세일즈 협업 -->
+        <h2 class="section-title">콘텐츠-세일즈 협업</h2>
+
+        <div class="collab-section">
+            <div class="collab-title">"현장 인사이트 → 세일즈 마케팅 퍼널용 콘텐츠"</div>
+
+            <div class="collab-flow">
+                <div class="collab-box sales">
+                    <div class="collab-box-title">CM / 세일즈팀</div>
+                    <ul class="collab-items">
+                        <li>▸ 잠재 고객 관심 주제</li>
+                        <li>▸ 자주 받는 질문</li>
+                        <li>▸ 반응 좋은 표현</li>
+                        <li>▸ 경쟁사 언급</li>
+                        <li>▸ 구매 장벽</li>
+                    </ul>
+                </div>
+
+                <div class="collab-arrow">
+                    <div class="collab-arrow-text">인사이트 공유<br>(insight_*.md)</div>
+                    <div class="collab-arrow-icon">→</div>
+                </div>
+
+                <div class="collab-box content">
+                    <div class="collab-box-title">콘텐츠팀</div>
+                    <ul class="collab-items">
+                        <li>▸ Lead Magnet 리포트</li>
+                        <li>▸ 비교 분석 콘텐츠</li>
+                        <li>▸ 트렌드 LinkedIn/X</li>
+                        <li>▸ 이메일 Hook 데이터</li>
+                        <li>▸ FAQ 콘텐츠</li>
+                    </ul>
+                </div>
+
+                <div class="collab-arrow">
+                    <div class="collab-arrow-text">퍼널용 콘텐츠</div>
+                    <div class="collab-arrow-icon">←</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 세일즈 파이프라인 -->
+        <h2 class="section-title">세일즈 파이프라인 (아웃바운드)</h2>
+
+        <div class="pipeline">
+            <div class="pipeline-step">
+                <div class="step-name">CM별 리드 발굴</div>
+                <div class="step-agent">9개 CM</div>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+                <div class="step-name">타깃 선정</div>
+                <div class="step-agent">20명/일</div>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+                <div class="step-name">메시지 작성</div>
+                <div class="step-agent">writer_ko/en</div>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+                <div class="step-name">발송</div>
+                <div class="step-agent">이메일/LinkedIn</div>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+                <div class="step-name">응답 추적</div>
+                <div class="step-agent">sales_director</div>
+            </div>
+        </div>
+
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-value">20명</div>
+                <div class="kpi-label">일일 타깃</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value">100건</div>
+                <div class="kpi-label">주간 리드</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value">5%</div>
+                <div class="kpi-label">응답률 목표</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value">2건</div>
+                <div class="kpi-label">주간 미팅</div>
+            </div>
+        </div>
+
+        <!-- 콘텐츠 파이프라인 -->
+        <h2 class="section-title">콘텐츠 파이프라인 (인바운드)</h2>
+
+        <div class="pipeline">
+            <div class="pipeline-step">
+                <div class="step-day">D+0</div>
+                <div class="step-name">심층 조사</div>
+                <div class="step-agent">조사원 1/2/3</div>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+                <div class="step-day">D+1</div>
+                <div class="step-name">팩트체크</div>
+                <div class="step-agent">fact_checker</div>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+                <div class="step-day">D+2</div>
+                <div class="step-name">구조화</div>
+                <div class="step-agent">structurer</div>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+                <div class="step-day">D+3</div>
+                <div class="step-name">작성</div>
+                <div class="step-agent">editor</div>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+                <div class="step-day">D+4</div>
+                <div class="step-name">검수</div>
+                <div class="step-agent">director</div>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+                <div class="step-day">D+5</div>
+                <div class="step-name">발행</div>
+                <div class="step-agent">LinkedIn/X</div>
+            </div>
+        </div>
+
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-value">주 3회</div>
+                <div class="kpi-label">LinkedIn</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value">주 5회</div>
+                <div class="kpi-label">X</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value">주 1회</div>
+                <div class="kpi-label">Substack</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value">48h</div>
+                <div class="kpi-label">CM 요청 응답</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>BJ 이커머스 사단 | Claude Code 멀티 에이전트 시스템 v2.0</p>
+            <p style="margin-top: 10px;">Updated: 2026-02-17</p>
+        </footer>
+    </div>
+</body>
+</html>

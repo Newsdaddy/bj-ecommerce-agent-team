@@ -1,0 +1,45 @@
+{
+  "content_pipeline": {
+    "current_topic": null,
+    "start_date": null,
+    "stages": {
+      "research": "pending",
+      "fact_check": "pending",
+      "structure": "pending",
+      "writing": "pending",
+      "review": "pending",
+      "publish": "pending"
+    },
+    "files": {
+      "research": [],
+      "verified": [],
+      "outlines": [],
+      "drafts": [],
+      "published": []
+    },
+    "issues": []
+  },
+  "sales_pipeline": {
+    "date": null,
+    "daily_target": {
+      "total": 20,
+      "region1": 10,
+      "region2": 5,
+      "region3": 5
+    },
+    "status": {
+      "leads_collected": 0,
+      "targets_selected": 0,
+      "messages_drafted": 0,
+      "messages_sent": 0,
+      "responses": 0
+    },
+    "files": {
+      "leads": [],
+      "structures": [],
+      "messages": [],
+      "logs": []
+    }
+  },
+  "last_updated": null
+}

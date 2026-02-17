@@ -11,19 +11,6 @@
 
 ## Final Content
 
-The Philippines just became Asia's fastest-growing eCommerce market.
-
-24.1% growth. $17.65B market.
-
-Not Vietnam. Not Indonesia.
-
-Shopee: 70M visitors (↑33%)
-Lazada: 37M visitors (↓10%)
-TikTok Shop: Now #2
-
-2030 projection: $33.65B
-
-#ecommerce #Philippines #APAC
 
 ---
 
