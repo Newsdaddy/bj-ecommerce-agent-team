@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BJ 이커머스 사단 - 에이전트 팀 구조도</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #0a0e1a;
+    color: #e0e6f0;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* --- Background Grid --- */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  /* --- Header --- */
+  .header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .header h1 {
+    font-size: 2.4rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #00d4ff, #7b61ff, #ff6b6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+  }
+  .header .subtitle {
+    margin-top: 8px;
+    font-size: 0.95rem;
+    color: #6b7a99;
+    font-weight: 300;
+  }
+
+  /* --- Stats Bar --- */
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    text-align: center;
+    padding: 16px 28px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    min-width: 140px;
+  }
+  .stat .num {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #00d4ff;
+  }
+  .stat .label {
+    font-size: 0.75rem;
+    color: #6b7a99;
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* --- Section --- */
+  .section {
+    margin-bottom: 48px;
+  }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .section-title .icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .section-title h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .section-title .count {
+    font-size: 0.7rem;
+    background: rgba(255,255,255,0.08);
+    padding: 3px 10px;
+    border-radius: 20px;
+    color: #8899bb;
+    font-weight: 500;
+  }
+
+  /* --- Card Grid --- */
+  .card-grid {
+    display: grid;
+    gap: 14px;
+  }
+  .grid-2 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+  .grid-4 { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+
+  /* --- Agent Card --- */
+  .card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    border-color: rgba(0,212,255,0.3);
+    background: rgba(255,255,255,0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,212,255,0.08);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+  }
+
+  /* Card tier colors */
+  .card.strategic::before { background: linear-gradient(90deg, #ffd700, #ffaa00); }
+  .card.sales-lead::before { background: linear-gradient(90deg, #00d4ff, #0088cc); }
+  .card.cm::before { background: linear-gradient(90deg, #4ecdc4, #2ba89a); }
+  .card.msg::before { background: linear-gradient(90deg, #7b61ff, #5a3fd6); }
+  .card.content-lead::before { background: linear-gradient(90deg, #ff6b6b, #cc4444); }
+  .card.content::before { background: linear-gradient(90deg, #ff9a56, #cc7733); }
+  .card.skill::before { background: linear-gradient(90deg, #a78bfa, #7c3aed); }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .card-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .card-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+  }
+  .card-id {
+    font-size: 0.7rem;
+    color: #556;
+    font-family: monospace;
+    margin-top: 2px;
+  }
+
+  .card-desc {
+    font-size: 0.8rem;
+    color: #8899bb;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 0.65rem;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+  .tag.model-opus { background: rgba(255,215,0,0.12); color: #ffd700; }
+  .tag.model-sonnet { background: rgba(0,212,255,0.12); color: #00d4ff; }
+  .tag.target { background: rgba(78,205,196,0.12); color: #4ecdc4; }
+  .tag.status-ready { background: rgba(52,211,153,0.12); color: #34d399; }
+  .tag.status-pending { background: rgba(251,191,36,0.12); color: #fbbf24; }
+  .tag.invoke { background: rgba(167,139,250,0.12); color: #a78bfa; }
+  .tag.priority-high { background: rgba(255,107,107,0.15); color: #ff6b6b; }
+  .tag.priority-mid { background: rgba(251,191,36,0.12); color: #fbbf24; }
+  .tag.priority-low { background: rgba(107,122,153,0.15); color: #8899bb; }
+
+  /* --- Org Flow --- */
+  .org-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin: 40px 0 48px;
+  }
+  .org-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .org-node {
+    padding: 10px 22px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-align: center;
+    min-width: 140px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .org-node.gold { background: rgba(255,215,0,0.1); color: #ffd700; border-color: rgba(255,215,0,0.2); }
+  .org-node.cyan { background: rgba(0,212,255,0.08); color: #00d4ff; border-color: rgba(0,212,255,0.15); }
+  .org-node.mint { background: rgba(78,205,196,0.08); color: #4ecdc4; border-color: rgba(78,205,196,0.15); }
+  .org-node.coral { background: rgba(255,107,107,0.08); color: #ff6b6b; border-color: rgba(255,107,107,0.15); }
+  .org-node.purple { background: rgba(123,97,255,0.08); color: #a78bfa; border-color: rgba(123,97,255,0.15); }
+
+  .org-connector {
+    width: 2px;
+    height: 24px;
+    background: rgba(255,255,255,0.08);
+    margin: 0 auto;
+  }
+  .org-branch {
+    width: 60%;
+    height: 2px;
+    background: rgba(255,255,255,0.06);
+    margin: 0 auto;
+  }
+
+  /* --- Integration Table --- */
+  .int-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.82rem;
+  }
+  .int-table th {
+    text-align: left;
+    padding: 12px 16px;
+    color: #6b7a99;
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .int-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    color: #b0bdd0;
+  }
+  .int-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .status-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+    position: relative;
+    top: -1px;
+  }
+  .status-dot.green { background: #34d399; box-shadow: 0 0 6px rgba(52,211,153,0.5); }
+  .status-dot.yellow { background: #fbbf24; box-shadow: 0 0 6px rgba(251,191,36,0.5); }
+  .status-dot.red { background: #f87171; box-shadow: 0 0 6px rgba(248,113,113,0.5); }
+
+  /* --- Pipeline --- */
+  .pipeline {
+    display: flex;
+    gap: 0;
+    align-items: stretch;
+    overflow-x: auto;
+    padding: 8px 0;
+  }
+  .pipe-step {
+    flex: 1;
+    min-width: 130px;
+    padding: 16px 14px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+    position: relative;
+  }
+  .pipe-step:first-child { border-radius: 12px 0 0 12px; }
+  .pipe-step:last-child { border-radius: 0 12px 12px 0; }
+  .pipe-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -1px; top: 50%;
+    transform: translateY(-50%);
+    width: 0; height: 0;
+    border: 8px solid transparent;
+    border-left-color: rgba(0,212,255,0.2);
+    z-index: 2;
+  }
+  .pipe-step .step-label {
+    font-size: 0.7rem;
+    color: #6b7a99;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .pipe-step .step-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #e0e6f0;
+    margin-top: 4px;
+  }
+  .pipe-step .step-agent {
+    font-size: 0.68rem;
+    color: #4ecdc4;
+    margin-top: 4px;
+  }
+
+  /* --- Footer --- */
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.72rem;
+    color: #3a4566;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 768px) {
+    .header h1 { font-size: 1.6rem; }
+    .stats-bar { gap: 12px; }
+    .stat { min-width: 100px; padding: 12px 16px; }
+    .stat .num { font-size: 1.4rem; }
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .pipeline { flex-direction: column; }
+    .pipe-step { border-radius: 8px !important; }
+    .pipe-step:not(:last-child)::after { display: none; }
+  }
+
+  /* Divider between systems */
+  .system-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 56px 0 32px;
+  }
+  .system-divider .line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(123,97,255,0.3), transparent);
+  }
+  .system-divider .label {
+    font-size: 0.7rem;
+    color: #7b61ff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>BJ 이커머스 사단</h1>
+    <div class="subtitle">ECDB APAC Multi-Agent Team Structure &mdash; 2026.03.15</div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat"><div class="num">35</div><div class="label">Total Agents</div></div>
+    <div class="stat"><div class="num">23</div><div class="label">Agent Team</div></div>
+    <div class="stat"><div class="num">12</div><div class="label">Skill Agents</div></div>
+    <div class="stat"><div class="num">18</div><div class="label">Daily Leads</div></div>
+    <div class="stat"><div class="num">8</div><div class="label">APAC Markets</div></div>
+  </div>
+
+  <!-- ═══════════ ORG CHART ═══════════ -->
+  <div class="org-flow">
+    <div class="org-row">
+      <div class="org-node gold">사외 이사</div>
+    </div>
+    <div class="org-connector"></div>
+    <div class="org-row">
+      <div class="org-node gold">총괄 실장 (General Manager)</div>
+    </div>
+    <div class="org-connector"></div>
+    <div class="org-branch"></div>
+    <div style="display:flex;justify-content:center;gap:120px;flex-wrap:wrap;margin-top:-1px;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+        <div class="org-connector"></div>
+        <div class="org-node cyan">세일즈 디렉터</div>
+        <div class="org-connector"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+          <div class="org-node mint" style="min-width:80px;font-size:0.7rem;">CM x8</div>
+          <div class="org-node purple" style="min-width:80px;font-size:0.7rem;">MSG x2</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+        <div class="org-connector"></div>
+        <div class="org-node coral">콘텐츠 디렉터</div>
+        <div class="org-connector"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+          <div class="org-node coral" style="min-width:80px;font-size:0.7rem;opacity:0.7;">편집 x3</div>
+          <div class="org-node coral" style="min-width:80px;font-size:0.7rem;opacity:0.7;">조사 x3</div>
+          <div class="org-node coral" style="min-width:80px;font-size:0.7rem;opacity:0.7;">검증 x1</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ SYSTEM 1: AGENT TEAM (24) ═══════════ -->
+
+  <!-- STRATEGIC -->
+  <div class="section">
+    <div class="section-title">
+      <div class="icon" style="background:rgba(255,215,0,0.12);">&#9733;</div>
+      <h2>전략급 Strategic</h2>
+      <span class="count">2 agents</span>
+    </div>
+    <div class="card-grid grid-2">
+      <div class="card strategic">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(255,215,0,0.12);">&#128081;</div>
+          <div>
+            <div class="card-name">사외 이사 (Outside Director)</div>
+            <div class="card-id">agents/strategic/outside_director.md</div>
+          </div>
+        </div>
+        <div class="card-desc">30년+ 컨설팅 경력 기반 전략 자문. 전략/재무/운영/시장/조직 5대 관점에서 비판적 리뷰 및 의사결정 감독.</div>
+        <div class="card-tags">
+          <span class="tag model-opus">Opus 4.5</span>
+          <span class="tag status-ready">READY</span>
+        </div>
+      </div>
+      <div class="card strategic">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(255,215,0,0.12);">&#127942;</div>
+          <div>
+            <div class="card-name">총괄 실장 (General Manager)</div>
+            <div class="card-id">agents/strategic/general_manager.md</div>
+          </div>
+        </div>
+        <div class="card-desc">Task 기반 오케스트레이션. 사용자 명령 수신 → 업무 분배 → 일일 점검 → 성과 보고. 세일즈+콘텐츠 양축 조율.</div>
+        <div class="card-tags">
+          <span class="tag model-opus">Opus 4.5</span>
+          <span class="tag status-ready">READY</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SALES TEAM -->
+  <div class="section">
+    <div class="section-title">
+      <div class="icon" style="background:rgba(0,212,255,0.12);">&#128200;</div>
+      <h2>세일즈팀 Sales</h2>
+      <span class="count">11 agents</span>
+    </div>
+
+    <!-- Sales Director -->
+    <div class="card-grid grid-2" style="margin-bottom:14px;">
+      <div class="card sales-lead">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(0,212,255,0.12);">&#128188;</div>
+          <div>
+            <div class="card-name">세일즈 디렉터 (Sales Director)</div>
+            <div class="card-id">agents/sales/sales_director.md</div>
+          </div>
+        </div>
+        <div class="card-desc">CM 8명 지휘, 일일 18명 타깃 관리, 캠페인 전략 정렬, 주간 보고. KPI: 오픈율 30%, 응답률 5%, 주 2회 미팅.</div>
+        <div class="card-tags">
+          <span class="tag model-opus">Opus 4.5</span>
+          <span class="tag target">18명/일</span>
+          <span class="tag status-ready">READY</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Country Managers -->
+    <div class="card-grid grid-3">
+      <div class="card cm">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(78,205,196,0.12);">&#127470;&#127465;</div>
+          <div>
+            <div class="card-name">CM Indonesia</div>
+            <div class="card-id">cm_indonesia.md</div>
+          </div>
+        </div>
+        <div class="card-desc">SEA 최대 시장 $94.5B. Tokopedia/Shopee 생태계 리드 발굴.</div>
+        <div class="card-tags">
+          <span class="tag model-sonnet">Sonnet 4.5</span>
+          <span class="tag target">3명/일</span>
+          <span class="tag priority-high">HIGH</span>
+        </div>
+      </div>
+      <div class="card cm">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(78,205,196,0.12);">&#127483;&#127475;</div>
+          <div>
+            <div class="card-name">CM Vietnam</div>
+            <div class="card-id">cm_vietnam.md</div>
+          </div>
+        </div>
+        <div class="card-desc">고성장 시장, Tiki/Sendo 로컬 플랫폼. 빠른 의사결정 문화.</div>
+        <div class="card-tags">
+          <span class="tag model-sonnet">Sonnet 4.5</span>
+          <span class="tag target">3명/일</span>
+          <span class="tag priority-high">HIGH</span>
+        </div>
+      </div>
+      <div class="card cm">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(78,205,196,0.12);">&#127472;&#127479;</div>
+          <div>
+            <div class="card-name">CM Korea</div>
+            <div class="card-id">cm_korea.md</div>
+          </div>
+        </div>
+        <div class="card-desc">홈마켓. 리테일/물류/D2C 브랜드 초기 접촉, 시장 콘텐츠 검수.</div>
+        <div class="card-tags">
+          <span class="tag model-sonnet">Sonnet 4.5</span>
+          <span class="tag target">3명/일</span>
+          <span class="tag priority-high">HIGH</span>
+        </div>
+      </div>
+      <div class="card cm">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(78,205,196,0.12);">&#127471;&#127477;</div>
+          <div>
+            <div class="card-name">CM Japan</div>
+            <div class="card-id">cm_japan.md</div>
+          </div>
+        </div>
+        <div class="card-desc">아시아 2위, 고단가 시장. 일본 비즈니스 관례 준수, 콘텐츠 현지화.</div>
+        <div class="card-tags">
+          <span class="tag model-sonnet">Sonnet 4.5</span>
+          <span class="tag target">3명/일</span>
+          <span class="tag priority-high">HIGH</span>
+        </div>
+      </div>
+      <div class="card cm">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(78,205,196,0.12);">&#127477;&#127469;</div>
+          <div>
+            <div class="card-name">CM Philippines</div>
+            <div class="card-id">cm_philippines.md</div>
+          </div>
+        </div>
+        <div class="card-desc">SEA 최고 성장률 16.7% CAGR. 영어권, 소셜 커머스 트렌드.</div>
+        <div class="card-tags">
+          <span class="tag model-sonnet">Sonnet 4.5</span>
+          <span class="tag target">2명/일</span>
+          <span class="tag priority-mid">MID</span>
+        </div>
+      </div>
+      <div class="card cm">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(78,205,196,0.12);">&#127470;&#127475;</div>
+          <div>
+            <div class="card-name">CM India</div>
+            <div class="card-id">cm_india.md</div>
+          </div>
+        </div>
+        <div class="card-desc">14억 인구, 이커머스 침투율 5% = 고성장 기회. Flipkart 생태계 집중.</div>
+        <div class="card-tags">
+          <span class="tag model-sonnet">Sonnet 4.5</span>
+          <span class="tag target">2명/일</span>
+          <span class="tag priority-mid">MID</span>
+        </div>
+      </div>
+      <div class="card cm">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(78,205,196,0.12);">&#127481;&#127469;</div>
+          <div>
+            <div class="card-name">CM SEA Emerging</div>
+            <div class="card-id">cm_sea_emerging.md</div>
+          </div>
+        </div>
+        <div class="card-desc">태국+말레이시아 통합. Shopee/Lazada 지배 시장, 로컬 리테일 타겟.</div>
+        <div class="card-tags">
+          <span class="tag model-sonnet">Sonnet 4.5</span>
+          <span class="tag target">1명/일</span>
+          <span class="tag priority-low">LOW</span>
+        </div>
+      </div>
+      <div class="card cm">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(78,205,196,0.12);">&#127462;&#127482;</div>
+          <div>
+            <div class="card-name">CM ANZ</div>
+            <div class="card-id">cm_anz.md</div>
+          </div>
+        </div>
+        <div class="card-desc">호주+뉴질랜드. 고단가 성숙 시장, 영어권 프리미엄 포지셔닝.</div>
+        <div class="card-tags">
+          <span class="tag model-sonnet">Sonnet 4.5</span>
+          <span class="tag target">1명/일</span>
+          <span class="tag priority-low">LOW</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message Writers -->
+    <div class="card-grid grid-2" style="margin-top:14px;">
+      <div class="card msg">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(123,97,255,0.12);">&#9997;&#65039;</div>
+          <div>
+            <div class="card-name">메시지 쓰기 한글 (Writer KO)</div>
+            <div class="card-id">agents/sales/message_writer_ko.md</div>
+          </div>
+        </div>
+        <div class="card-desc">한국어 세일즈 메시지 작성. 경어/존칭 관리, 한국 비즈 문화 준수.</div>
+        <div class="card-tags">
+          <span class="tag model-sonnet">Sonnet 4.5</span>
+          <span class="tag status-ready">READY</span>
+        </div>
+      </div>
+      <div class="card msg">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(123,97,255,0.12);">&#9997;&#65039;</div>
+          <div>
+            <div class="card-name">메시지 쓰기 영어 (Writer EN)</div>
+            <div class="card-id">agents/sales/message_writer_en.md</div>
+          </div>
+        </div>
+        <div class="card-desc">영어 세일즈 메시지 작성. SEA/인도/ANZ 지역별 톤 조절, LinkedIn/Email 포맷.</div>
+        <div class="card-tags">
+          <span class="tag model-sonnet">Sonnet 4.5</span>
+          <span class="tag status-ready">READY</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT TEAM -->
+  <div class="section">
+    <div class="section-title">
+      <div class="icon" style="background:rgba(255,107,107,0.12);">&#128221;</div>
+      <h2>콘텐츠팀 Content</h2>
+      <span class="count">10 agents</span>
+    </div>
+
+    <!-- Content Director -->
+    <div class="card-grid grid-2" style="margin-bottom:14px;">
+      <div class="card content-lead">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(255,107,107,0.12);">&#127908;</div>
+          <div>
+            <div class="card-name">콘텐츠 디렉터 (Content Director)</div>
+            <div class="card-id">agents/content/content_director.md</div>
+          </div>
+        </div>
+        <div class="card-desc">콘텐츠 전략 수립, D+0~D+5 파이프라인 총괄, 7명 서브 에이전트 QA 관리, 세일즈팀 협업 조율.</div>
+        <div class="card-tags">
+          <span class="tag model-opus">Opus 4.5</span>
+          <span class="tag status-ready">READY</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-grid grid-3">
+      <div class="card content">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(255,154,86,0.12);">&#128296;</div>
+          <div>
+            <div class="card-name">콘텐츠 구조화</div>
+            <div class="card-id">content_structurer.md</div>
+          </div>
+        </div>
+        <div class="card-desc">팩트체크된 자료를 플랫폼별 아웃라인으로 구조화. LinkedIn/X/Substack 이중 언어 버전.</div>
+        <div class="card-tags">
+          <span class="tag model-opus">Opus 4.5</span>
+        </div>
+      </div>
+      <div class="card content">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(255,154,86,0.12);">&#128394;</div>
+          <div>
+            <div class="card-name">콘텐츠 에디터</div>
+            <div class="card-id">content_editor.md</div>
+          </div>
+        </div>
+        <div class="card-desc">김훈(KO)/Justin Welsh(EN) 문체 적용. 비주얼 에이드 matplotlib 생성. 세일즈 콘텐츠 24h SLA.</div>
+        <div class="card-tags">
+          <span class="tag model-opus">Opus 4.5</span>
+        </div>
+      </div>
+      <div class="card content">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(255,154,86,0.12);">&#129302;</div>
+          <div>
+            <div class="card-name">콘텐츠 자동화</div>
+            <div class="card-id">content_auto_agent.md</div>
+          </div>
+        </div>
+        <div class="card-desc">LangGraph 3-에이전트 파이프라인. 매일 07:00 GMT 리드 마그넷 3건 자동 생성 (1KO + 2EN).</div>
+        <div class="card-tags">
+          <span class="tag model-opus">Opus 4.5</span>
+          <span class="tag target">3건/일</span>
+        </div>
+      </div>
+      <div class="card content">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(255,154,86,0.12);">&#128270;</div>
+          <div>
+            <div class="card-name">팩트체커</div>
+            <div class="card-id">fact_checker.md</div>
+          </div>
+        </div>
+        <div class="card-desc">모든 데이터 교차 검증. 직접 접근 URL 필수. VERIFIED / UNVERIFIED 태깅.</div>
+        <div class="card-tags">
+          <span class="tag model-sonnet">Sonnet 4.5</span>
+        </div>
+      </div>
+      <div class="card content">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(255,154,86,0.12);">&#127758;</div>
+          <div>
+            <div class="card-name">조사원 권역1</div>
+            <div class="card-id">researcher_region1.md</div>
+          </div>
+        </div>
+        <div class="card-desc">KR, JP, VN, SG, TH, PH, ID 이커머스 트렌드 심층 조사.</div>
+        <div class="card-tags">
+          <span class="tag model-sonnet">Sonnet 4.5</span>
+        </div>
+      </div>
+      <div class="card content">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(255,154,86,0.12);">&#127758;</div>
+          <div>
+            <div class="card-name">조사원 권역2</div>
+            <div class="card-id">researcher_region2.md</div>
+          </div>
+        </div>
+        <div class="card-desc">말레이시아, 인도 시장 조사. Economic Times, The Star 등 Tier 1 미디어 커버.</div>
+        <div class="card-tags">
+          <span class="tag model-sonnet">Sonnet 4.5</span>
+        </div>
+      </div>
+      <div class="card content">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(255,154,86,0.12);">&#127758;</div>
+          <div>
+            <div class="card-name">조사원 권역3</div>
+            <div class="card-id">researcher_region3.md</div>
+          </div>
+        </div>
+        <div class="card-desc">호주, 뉴질랜드 시장 조사. AFR, ABC News, NZ Herald 커버.</div>
+        <div class="card-tags">
+          <span class="tag model-sonnet">Sonnet 4.5</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ SYSTEM 2: SKILL AGENTS (12) ═══════════ -->
+  <div class="system-divider">
+    <div class="line"></div>
+    <div class="label">Claude Code Skill Agents</div>
+    <div class="line"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      <div class="icon" style="background:rgba(167,139,250,0.12);">&#9889;</div>
+      <h2>스킬 에이전트 Skills (.claude/skills/)</h2>
+      <span class="count">12 skills &middot; all user-invocable</span>
+    </div>
+    <div class="card-grid grid-3">
+      <!-- Chief -->
+      <div class="card skill">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(167,139,250,0.15);">&#128736;</div>
+          <div>
+            <div class="card-name">chief</div>
+            <div class="card-id">/chief &rarr; 오케스트레이터</div>
+          </div>
+        </div>
+        <div class="card-desc">사용자 요청을 분석해 적합한 스킬 에이전트에 자동 라우팅.</div>
+        <div class="card-tags">
+          <span class="tag invoke">/chief</span>
+          <span class="tag status-ready">READY</span>
+        </div>
+      </div>
+      <!-- sales-strategist -->
+      <div class="card skill">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(167,139,250,0.15);">&#9876;&#65039;</div>
+          <div>
+            <div class="card-name">sales-strategist</div>
+            <div class="card-id">Challenger + SPICED + MECE</div>
+          </div>
+        </div>
+        <div class="card-desc">챌린저세일 기반 세일즈 전략 자문. SPICED 매핑, 제안서 아웃라인.</div>
+        <div class="card-tags">
+          <span class="tag invoke">/sales-strategist</span>
+          <span class="tag status-ready">v1</span>
+        </div>
+      </div>
+      <!-- proposal-pro -->
+      <div class="card skill">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(167,139,250,0.15);">&#128209;</div>
+          <div>
+            <div class="card-name">proposal-pro</div>
+            <div class="card-id">미팅 노트 &rarr; 제안서 PPT</div>
+          </div>
+        </div>
+        <div class="card-desc">회의록 기반 ECDB 제안서 생성. ROI, Usage, 의사결정권자 관점.</div>
+        <div class="card-tags">
+          <span class="tag invoke">/proposal-pro</span>
+          <span class="tag status-ready">v2</span>
+        </div>
+      </div>
+      <!-- account-intel -->
+      <div class="card skill">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(167,139,250,0.15);">&#128373;&#65039;</div>
+          <div>
+            <div class="card-name">account-intel</div>
+            <div class="card-id">DART API + 웹서치</div>
+          </div>
+        </div>
+        <div class="card-desc">타깃 기업 인텔리전스 리포트 생성. 미팅 준비 전문.</div>
+        <div class="card-tags">
+          <span class="tag invoke">/account-intel</span>
+          <span class="tag status-ready">v1</span>
+        </div>
+      </div>
+      <!-- cold-writer -->
+      <div class="card skill">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(167,139,250,0.15);">&#128231;</div>
+          <div>
+            <div class="card-name">cold-writer</div>
+            <div class="card-id">18일 12단계 시퀀싱</div>
+          </div>
+        </div>
+        <div class="card-desc">콜드메일/LinkedIn 메시지 시퀀스 작성. 단계별 맞춤 아웃리치.</div>
+        <div class="card-tags">
+          <span class="tag invoke">/cold-writer</span>
+          <span class="tag status-ready">v1</span>
+        </div>
+      </div>
+      <!-- lead-scorer -->
+      <div class="card skill">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(167,139,250,0.15);">&#127919;</div>
+          <div>
+            <div class="card-name">lead-scorer</div>
+            <div class="card-id">ICP 100점 스코어링</div>
+          </div>
+        </div>
+        <div class="card-desc">버티컬/직책/지역/규모/D2C 신호 기반 리드 점수화.</div>
+        <div class="card-tags">
+          <span class="tag invoke">/lead-scorer</span>
+          <span class="tag status-ready">v1</span>
+        </div>
+      </div>
+      <!-- meeting-wrapper -->
+      <div class="card skill">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(167,139,250,0.15);">&#128196;</div>
+          <div>
+            <div class="card-name">meeting-wrapper</div>
+            <div class="card-id">SPICED 정리 + 팔로업</div>
+          </div>
+        </div>
+        <div class="card-desc">회의록을 SPICED 구조로 정리. 팔로업 메일 + 다음 일정 안내 자동 생성.</div>
+        <div class="card-tags">
+          <span class="tag invoke">/meeting-wrapper</span>
+          <span class="tag status-ready">v1</span>
+        </div>
+      </div>
+      <!-- offer-calculator -->
+      <div class="card skill">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(167,139,250,0.15);">&#128178;</div>
+          <div>
+            <div class="card-name">offer-calculator</div>
+            <div class="card-id">Corporate+ 가격 산정</div>
+          </div>
+        </div>
+        <div class="card-desc">Corporate+ 기준 첫 오퍼 산정. &euro;12,600/년, 최대 20% 할인.</div>
+        <div class="card-tags">
+          <span class="tag invoke">/offer-calculator</span>
+          <span class="tag status-ready">v1</span>
+        </div>
+      </div>
+      <!-- roi-builder -->
+      <div class="card skill">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(167,139,250,0.15);">&#128202;</div>
+          <div>
+            <div class="card-name">roi-builder</div>
+            <div class="card-id">FTE 환산 + 기회비용</div>
+          </div>
+        </div>
+        <div class="card-desc">ECDB 미사용 기회비용 수치화. 제안서용 ROI 슬라이드 초안.</div>
+        <div class="card-tags">
+          <span class="tag invoke">/roi-builder</span>
+          <span class="tag status-ready">v1</span>
+        </div>
+      </div>
+      <!-- concept-sage -->
+      <div class="card skill">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(167,139,250,0.15);">&#128218;</div>
+          <div>
+            <div class="card-name">concept-sage</div>
+            <div class="card-id">데이터포인트 개념 설명</div>
+          </div>
+        </div>
+        <div class="card-desc">ECDB 데이터포인트 개념을 업종별/도메인별로 쉽게 설명.</div>
+        <div class="card-tags">
+          <span class="tag invoke">/concept-sage</span>
+          <span class="tag status-ready">READY</span>
+        </div>
+      </div>
+      <!-- method-master -->
+      <div class="card skill">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(167,139,250,0.15);">&#128300;</div>
+          <div>
+            <div class="card-name">method-master</div>
+            <div class="card-id">방법론 쉽게 설명</div>
+          </div>
+        </div>
+        <div class="card-desc">ECDB 데이터 방법론/산출 방식을 초등학생도 이해할 수 있게 설명.</div>
+        <div class="card-tags">
+          <span class="tag invoke">/method-master</span>
+          <span class="tag status-ready">READY</span>
+        </div>
+      </div>
+      <!-- data-scout -->
+      <div class="card skill">
+        <div class="card-header">
+          <div class="card-avatar" style="background:rgba(167,139,250,0.15);">&#128269;</div>
+          <div>
+            <div class="card-name">data-scout</div>
+            <div class="card-id">ecdb.com 데이터 수집</div>
+          </div>
+        </div>
+        <div class="card-desc">ECDB 플랫폼 접속, 데이터 수집, 사용자 관점 페인포인트 분석.</div>
+        <div class="card-tags">
+          <span class="tag invoke">/data-scout</span>
+          <span class="tag status-ready">READY</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ PIPELINES ═══════════ -->
+  <div class="system-divider">
+    <div class="line"></div>
+    <div class="label">Pipelines</div>
+    <div class="line"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      <div class="icon" style="background:rgba(0,212,255,0.12);">&#128640;</div>
+      <h2>세일즈 파이프라인 (아웃바운드)</h2>
+    </div>
+    <div class="pipeline">
+      <div class="pipe-step"><div class="step-label">Step 1</div><div class="step-name">리드 발굴</div><div class="step-agent">CM x8 + Sales Navigator</div></div>
+      <div class="pipe-step"><div class="step-label">Step 2</div><div class="step-name">타깃 선정</div><div class="step-agent">18명/일 배분</div></div>
+      <div class="pipe-step"><div class="step-label">Step 3</div><div class="step-name">메시지 작성</div><div class="step-agent">Writer KO/EN</div></div>
+      <div class="pipe-step"><div class="step-label">Step 4</div><div class="step-name">발송</div><div class="step-agent">Cowork + InMail</div></div>
+      <div class="pipe-step"><div class="step-label">Step 5</div><div class="step-name">CRM 등록</div><div class="step-agent">Salesforce MCP</div></div>
+      <div class="pipe-step"><div class="step-label">Step 6</div><div class="step-name">응답 추적</div><div class="step-agent">Sales Director</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      <div class="icon" style="background:rgba(255,107,107,0.12);">&#128221;</div>
+      <h2>콘텐츠 파이프라인 (인바운드)</h2>
+    </div>
+    <div class="pipeline">
+      <div class="pipe-step"><div class="step-label">D+0</div><div class="step-name">심층 조사</div><div class="step-agent">조사원 x3</div></div>
+      <div class="pipe-step"><div class="step-label">D+1</div><div class="step-name">팩트체킹</div><div class="step-agent">팩트체커</div></div>
+      <div class="pipe-step"><div class="step-label">D+2</div><div class="step-name">구조화</div><div class="step-agent">콘텐츠 구조화</div></div>
+      <div class="pipe-step"><div class="step-label">D+3</div><div class="step-name">콘텐츠 작성</div><div class="step-agent">콘텐츠 에디터</div></div>
+      <div class="pipe-step"><div class="step-label">D+4</div><div class="step-name">검수</div><div class="step-agent">콘텐츠 디렉터</div></div>
+      <div class="pipe-step"><div class="step-label">D+5</div><div class="step-name">발행</div><div class="step-agent">LI / X / Substack</div></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ INTEGRATIONS ═══════════ -->
+  <div class="system-divider">
+    <div class="line"></div>
+    <div class="label">Integration Status</div>
+    <div class="line"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      <div class="icon" style="background:rgba(52,211,153,0.12);">&#128279;</div>
+      <h2>외부 연동 현황</h2>
+    </div>
+    <table class="int-table">
+      <thead>
+        <tr><th>도구</th><th>역할</th><th>연결 방식</th><th>상태</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Gmail</strong></td><td>이메일 발송/수신</td><td>MCP Server</td>
+          <td><span class="status-dot green"></span>연결됨</td>
+        </tr>
+        <tr>
+          <td><strong>Slack</strong></td><td>내부 알림</td><td>MCP Server</td>
+          <td><span class="status-dot green"></span>연결됨</td>
+        </tr>
+        <tr>
+          <td><strong>Notion</strong></td><td>문서 관리</td><td>MCP Server</td>
+          <td><span class="status-dot green"></span>연결됨</td>
+        </tr>
+        <tr>
+          <td><strong>Google Calendar</strong></td><td>일정 관리</td><td>MCP Server</td>
+          <td><span class="status-dot green"></span>연결됨</td>
+        </tr>
+        <tr>
+          <td><strong>Canva</strong></td><td>디자인/비주얼</td><td>MCP Server</td>
+          <td><span class="status-dot green"></span>연결됨</td>
+        </tr>
+        <tr>
+          <td><strong>Playwright</strong></td><td>웹 브라우저 자동화</td><td>MCP Server</td>
+          <td><span class="status-dot green"></span>연결됨</td>
+        </tr>
+        <tr>
+          <td><strong>Sales Navigator</strong></td><td>리드 발굴 + InMail</td><td>Cowork 브라우저</td>
+          <td><span class="status-dot yellow"></span>테스트 예정</td>
+        </tr>
+        <tr>
+          <td><strong>Salesforce</strong></td><td>CRM 파이프라인</td><td>MCP Server (미설정)</td>
+          <td><span class="status-dot red"></span>설정 필요</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    BJ 이커머스 사단 &mdash; ECDB APAC Strategy &middot; 35 Agents &middot; Built with Claude Code &middot; 2026.03.15
+  </div>
+
+</div>
+</body>
+</html>
