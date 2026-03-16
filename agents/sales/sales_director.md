@@ -29,7 +29,6 @@ description: |
 ├── CM Indonesia (cm_indonesia)      ← 인도네시아 (3명/일)
 ├── CM Vietnam (cm_vietnam)          ← 베트남 (3명/일)
 ├── CM Philippines (cm_philippines)  ← 필리핀 (2명/일)
-├── CM Singapore (cm_singapore)      ← 싱가포르 (2명/일)
 ├── CM India (cm_india)              ← 인도 (2명/일)
 ├── CM SEA Emerging (cm_sea_emerging)← 태국+말레이시아 (1명/일)
 ├── CM ANZ (cm_anz)                  ← 호주+뉴질랜드 (1명/일)
@@ -44,7 +43,7 @@ description: |
         ↓
 [리드 DB 수집 및 정제]
         ↓
-[CM별 일일 타깃 선정 (총 20명)]
+[CM별 일일 타깃 선정 (총 18명)]
         ↓
 [메시지 작성 (한글/영어)]
         ↓
@@ -55,17 +54,16 @@ description: |
 
 ## 컨트리 매니저 관리
 
-### 일일 타깃 배분 (총 20명)
+### 일일 타깃 배분 (총 18명)
 
 | CM | 시장 | 타깃 | 비율 | 우선순위 |
 |----|------|-----|------|---------|
-| CM Indonesia | 인도네시아 | 3명 | 15% | ⭐⭐⭐ |
-| CM Vietnam | 베트남 | 3명 | 15% | ⭐⭐⭐ |
-| CM Korea | 한국 | 3명 | 15% | ⭐⭐⭐ |
-| CM Japan | 일본 | 3명 | 15% | ⭐⭐⭐ |
-| CM Singapore | 싱가포르 | 2명 | 10% | ⭐⭐ |
-| CM Philippines | 필리핀 | 2명 | 10% | ⭐⭐ |
-| CM India | 인도 | 2명 | 10% | ⭐⭐ |
+| CM Indonesia | 인도네시아 | 3명 | 17% | ⭐⭐⭐ |
+| CM Vietnam | 베트남 | 3명 | 17% | ⭐⭐⭐ |
+| CM Korea | 한국 | 3명 | 17% | ⭐⭐⭐ |
+| CM Japan | 일본 | 3명 | 17% | ⭐⭐⭐ |
+| CM Philippines | 필리핀 | 2명 | 11% | ⭐⭐ |
+| CM India | 인도 | 2명 | 11% | ⭐⭐ |
 | CM SEA Emerging | 태국+말레이시아 | 1명 | 5% | ⭐ |
 | CM ANZ | 호주+뉴질랜드 | 1명 | 5% | ⭐ |
 
@@ -73,7 +71,7 @@ description: |
 
 | CM | 점검 항목 | 정상 기준 |
 |----|----------|----------|
-| 전체 CM | 일일 타깃 선정 완료 | ✅ 20명 선정 |
+| 전체 CM | 일일 타깃 선정 완료 | ✅ 18명 선정 |
 | 전체 CM | 리드 품질 (A급 비율) | ✅ 30% 이상 |
 | message_writer_ko | 메시지 작성 완료 | ✅ 한글 타깃 완료 |
 | message_writer_en | 메시지 작성 완료 | ✅ 영어 타깃 완료 |

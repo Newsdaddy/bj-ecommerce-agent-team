@@ -97,14 +97,13 @@ BJ 이커머스 사단/
 │   ├── strategic/               ← 전략급 (2명)
 │   │   ├── outside_director.md
 │   │   └── general_manager.md
-│   ├── sales/                   ← 세일즈팀 (12명)
+│   ├── sales/                   ← 세일즈팀 (11명)
 │   │   ├── sales_director.md
 │   │   ├── cm_korea.md
 │   │   ├── cm_japan.md
 │   │   ├── cm_indonesia.md
 │   │   ├── cm_vietnam.md
 │   │   ├── cm_philippines.md
-│   │   ├── cm_singapore.md
 │   │   ├── cm_india.md
 │   │   ├── cm_sea_emerging.md
 │   │   ├── cm_anz.md
@@ -123,14 +122,13 @@ BJ 이커머스 사단/
 └── docs/                        ← 문서 (이 파일 포함)
 ```
 
-### 일일 타깃 배분 (20명)
+### 일일 타깃 배분 (18명)
 | CM | 시장 | 타깃 | 우선순위 |
 |----|------|-----|---------|
 | CM Indonesia | 인도네시아 | 3명 | ⭐⭐⭐ 고성장 |
 | CM Vietnam | 베트남 | 3명 | ⭐⭐⭐ 고성장 |
 | CM Korea | 한국 | 3명 | ⭐⭐⭐ 홈마켓 |
 | CM Japan | 일본 | 3명 | ⭐⭐⭐ 고단가 |
-| CM Singapore | 싱가포르 | 2명 | ⭐⭐ HQ집중 |
 | CM Philippines | 필리핀 | 2명 | ⭐⭐ 최고성장률 |
 | CM India | 인도 | 2명 | ⭐⭐ 잠재력 |
 | CM SEA Emerging | 태국+말레이 | 1명 | ⭐ 보조 |
