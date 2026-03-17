@@ -5,7 +5,7 @@
 ```yaml
 name: researcher_region3
 type: content
-model: claude-sonnet-4-5-20250929
+model: claude-sonnet-4-6
 description: |
   권역 3(호주, 뉴질랜드) 시장의 이커머스 트렌드, 주요 플레이어,
   시장 데이터를 심층 조사하는 에이전트.

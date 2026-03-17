@@ -5,7 +5,7 @@
 ```yaml
 name: content_director
 type: content
-model: claude-opus-4-5-20251101
+model: claude-opus-4-6
 description: |
   이커머스 데이터 SaaS의 B2B 인바운드 마케팅을 위한 콘텐츠 전략을 수립하고,
   콘텐츠 파이프라인 전체를 관리한다.

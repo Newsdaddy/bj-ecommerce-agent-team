@@ -5,7 +5,7 @@
 ```yaml
 name: content_auto_agent
 type: content
-model: claude-opus-4-5-20251101
+model: claude-opus-4-6
 description: |
   APAC Lead Magnet Auto-Generator - Multi-agent system that automatically
   generates 3 lead magnets daily for APAC commerce professionals and
@@ -80,7 +80,7 @@ pending → research → writing → qa → completed
 ```
 ANTHROPIC_API_KEY=         # Claude API key
 GOOGLE_FOLDER_ID=          # Drive folder for documents
-CLAUDE_MODEL=claude-opus-4-5-20251101
+CLAUDE_MODEL=claude-opus-4-6
 MAX_TOKENS=4000
 TEMPERATURE=0.7
 GENERATION_TIME=07:00

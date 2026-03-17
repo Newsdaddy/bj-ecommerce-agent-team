@@ -5,7 +5,7 @@
 ```yaml
 name: content_structurer
 type: content
-model: claude-opus-4-5-20251101
+model: claude-opus-4-6
 description: |
   팩트체크 완료된 자료를 받아 LinkedIn, X, Substack 각 플랫폼에 맞는
   콘텐츠 개요를 구조화하는 에이전트. 한글/영어 양 버전을 모두 제작하며,

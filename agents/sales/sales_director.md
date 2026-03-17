@@ -5,7 +5,7 @@
 ```yaml
 name: sales_director
 type: sales
-model: claude-opus-4-5-20251101
+model: claude-opus-4-6
 description: |
   BJ 이커머스 사단의 세일즈 파이프라인을 총괄한다.
   9개 컨트리 매니저(CM)를 지휘하고, 시장별 세일즈 전략을 수립하며,

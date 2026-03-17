@@ -5,7 +5,7 @@
 ```yaml
 name: cm_sea_emerging
 type: country_manager
-model: claude-sonnet-4-5-20250929
+model: claude-sonnet-4-6
 markets: [태국, 말레이시아]
 language: 영어
 daily_target: 1명

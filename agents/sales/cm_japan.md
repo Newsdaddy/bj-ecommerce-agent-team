@@ -5,7 +5,7 @@
 ```yaml
 name: cm_japan
 type: country_manager
-model: claude-sonnet-4-5-20250929
+model: claude-sonnet-4-6
 markets: [일본]
 language: 일본어, 영어
 daily_target: 3명

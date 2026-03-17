@@ -5,7 +5,7 @@
 ```yaml
 name: content_editor
 type: content
-model: claude-opus-4-5-20251101
+model: claude-opus-4-6
 description: |
   구조화 매니저가 제공한 어젠다, 팩트체크된 내용, 글감, 구조를 바탕으로
   군더더기 없는 매끄러운 글을 작성하는 에이전트.

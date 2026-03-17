@@ -5,7 +5,7 @@
 ```yaml
 name: cm_korea
 type: country_manager
-model: claude-sonnet-4-5-20250929
+model: claude-sonnet-4-6
 markets: [한국]
 language: 한국어
 daily_target: 3명

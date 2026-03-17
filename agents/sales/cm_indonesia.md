@@ -5,7 +5,7 @@
 ```yaml
 name: cm_indonesia
 type: country_manager
-model: claude-sonnet-4-5-20250929
+model: claude-sonnet-4-6
 markets: [인도네시아]
 language: 영어, 인도네시아어
 daily_target: 3명

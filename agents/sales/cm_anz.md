@@ -5,7 +5,7 @@
 ```yaml
 name: cm_anz
 type: country_manager
-model: claude-sonnet-4-5-20250929
+model: claude-sonnet-4-6
 markets: [호주, 뉴질랜드]
 language: 영어
 daily_target: 1명

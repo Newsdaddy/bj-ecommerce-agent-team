@@ -5,7 +5,7 @@
 ```yaml
 name: researcher_region2
 type: content
-model: claude-sonnet-4-5-20250929
+model: claude-sonnet-4-6
 description: |
   권역 2(말레이시아, 인도) 시장의 이커머스 트렌드, 주요 플레이어,
   시장 데이터를 심층 조사하는 에이전트.

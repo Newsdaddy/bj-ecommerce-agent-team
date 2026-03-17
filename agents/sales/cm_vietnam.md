@@ -5,7 +5,7 @@
 ```yaml
 name: cm_vietnam
 type: country_manager
-model: claude-sonnet-4-5-20250929
+model: claude-sonnet-4-6
 markets: [베트남]
 language: 영어, 베트남어
 daily_target: 3명

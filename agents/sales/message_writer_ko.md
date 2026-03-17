@@ -5,7 +5,7 @@
 ```yaml
 name: message_writer_ko
 type: sales
-model: claude-sonnet-4-5-20250929
+model: claude-sonnet-4-6
 description: |
   한국어권 타깃을 대상으로 개인화된 세일즈 메시지를 작성하고 발송한다.
   캠페인 브리프와 리드 DB를 기반으로 자연스러운 한글 메시지를 작성하며,

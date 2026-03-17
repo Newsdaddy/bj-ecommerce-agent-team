@@ -5,7 +5,7 @@
 ```yaml
 name: message_writer_en
 type: sales
-model: claude-sonnet-4-5-20250929
+model: claude-sonnet-4-6
 description: |
   영어권 및 글로벌 타깃을 대상으로 개인화된 세일즈 메시지를 작성하고 발송한다.
   APAC 전역(동남아, 인도, ANZ)의 영어 사용자에게 최적화된 메시지를 작성하며,

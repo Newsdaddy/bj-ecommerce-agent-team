@@ -5,7 +5,7 @@
 ```yaml
 name: fact_checker
 type: content
-model: claude-sonnet-4-5-20250929
+model: claude-sonnet-4-6
 description: |
   심층 조사원들이 수집한 이커머스 데이터와 시장 정보의 사실관계를 검증하는 에이전트.
   공식 기관, 학술 자료, 신뢰할 수 있는 1차 출처를 통해 교차 검증하며,

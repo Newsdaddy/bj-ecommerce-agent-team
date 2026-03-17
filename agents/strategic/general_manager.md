@@ -5,7 +5,7 @@
 ```yaml
 name: general_manager
 type: strategic
-model: claude-opus-4-5-20251101
+model: claude-opus-4-6
 description: |
   BJ 이커머스 사단 전체를 총괄하며, 콘텐츠 제작 일정을 관리하고
   서브 에이전트들의 작동 상태를 매일 점검하여 사용자에게 보고한다.
